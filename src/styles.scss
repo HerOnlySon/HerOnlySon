@@ -1,1 +1,64 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --bg-1: #f7f3e8;
+  --bg-2: #dbedf0;
+  --ink: #102a38;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  color: var(--ink);
+  font-family: 'Avenir Next', 'Segoe UI', 'Trebuchet MS', sans-serif;
+  background:
+    radial-gradient(circle at 12% 14%, rgba(245, 166, 116, 0.3), transparent 40%),
+    radial-gradient(circle at 84% 0%, rgba(77, 145, 182, 0.25), transparent 34%),
+    linear-gradient(135deg, var(--bg-1), var(--bg-2));
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Gill Sans', 'Trebuchet MS', sans-serif;
+}
+
+.animate-in {
+  animation: rise-in 420ms ease-out both;
+}
+
+.skeleton {
+  border-radius: 12px;
+  background: linear-gradient(110deg, #eef3f6 8%, #dde7ee 18%, #eef3f6 33%);
+  background-size: 200% 100%;
+  animation: shimmer 1.1s linear infinite;
+}
+
+.skeleton-line {
+  height: 12px;
+  margin: 0.45rem 0;
+}
+
+@keyframes shimmer {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

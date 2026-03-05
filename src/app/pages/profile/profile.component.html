@@ -1,0 +1,94 @@
+<ng-container *ngIf="profile$ | async as current; else loadingState">
+  <section class="profile animate-in">
+    <header>
+      <p class="eyebrow">Profiles</p>
+      <h1>User and Vehicle Setup</h1>
+      <p>Configure identity and car details used in risk scoring and maintenance recommendations.</p>
+    </header>
+
+    <div class="form-grid">
+      <form [formGroup]="userForm" class="panel">
+        <h2>User Profile</h2>
+        <label>
+          Full Name
+          <input type="text" formControlName="name" placeholder="Thandi Ndlovu" />
+        </label>
+        <label>
+          Email
+          <input type="email" formControlName="email" placeholder="name@example.com" />
+        </label>
+        <label>
+          City
+          <input type="text" formControlName="city" placeholder="Cape Town, Western Cape" />
+        </label>
+      </form>
+
+      <form [formGroup]="carForm" class="panel">
+        <h2>Car Profile</h2>
+        <label>
+          Make
+          <input type="text" formControlName="make" placeholder="VW" />
+        </label>
+        <label>
+          Model
+          <input type="text" formControlName="model" placeholder="Polo" />
+        </label>
+        <label>
+          Year
+          <input type="number" formControlName="year" />
+        </label>
+        <label>
+          Mileage (km)
+          <input type="number" formControlName="mileage" />
+        </label>
+        <label>
+          Last Service Mileage (km)
+          <input type="number" formControlName="lastServiceMileage" />
+        </label>
+        <label>
+          Service Interval (km)
+          <input type="number" formControlName="serviceIntervalKm" />
+        </label>
+        <label>
+          Driving Style
+          <select formControlName="drivingStyle">
+            <option value="Calm">Calm</option>
+            <option value="Balanced">Balanced</option>
+            <option value="Aggressive">Aggressive</option>
+          </select>
+        </label>
+      </form>
+    </div>
+
+    <button type="button" [disabled]="isSaving" (click)="saveProfiles()">{{ isSaving ? 'Saving...' : 'Save Profiles' }}</button>
+
+    <article class="panel summary">
+      <h3>Current Saved Data</h3>
+      <p><strong>Name:</strong> {{ current[0].name }}</p>
+      <p><strong>Email:</strong> {{ current[0].email }}</p>
+      <p><strong>Car:</strong> {{ current[1].year }} {{ current[1].make }} {{ current[1].model }}</p>
+      <p><strong>Mileage:</strong> {{ current[1].mileage | number }} km</p>
+      <p><strong>Last Service:</strong> {{ current[1].lastServiceMileage | number }} km</p>
+      <p><strong>Service Interval:</strong> {{ current[1].serviceIntervalKm | number }} km</p>
+      <p><strong>Driving Style:</strong> {{ current[1].drivingStyle }}</p>
+    </article>
+  </section>
+</ng-container>
+
+<ng-template #loadingState>
+  <section class="profile loading-view">
+    <div class="skeleton skeleton-line" style="width: 220px;"></div>
+    <div class="form-grid">
+      <article class="panel">
+        <div class="skeleton skeleton-line" style="width: 45%;"></div>
+        <div class="skeleton skeleton-line"></div>
+        <div class="skeleton skeleton-line"></div>
+      </article>
+      <article class="panel">
+        <div class="skeleton skeleton-line" style="width: 45%;"></div>
+        <div class="skeleton skeleton-line"></div>
+        <div class="skeleton skeleton-line"></div>
+      </article>
+    </div>
+  </section>
+</ng-template>

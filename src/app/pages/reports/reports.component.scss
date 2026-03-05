@@ -1,0 +1,62 @@
+.reports {
+  display: grid;
+  gap: 1rem;
+}
+
+.panel {
+  animation: panel-enter 380ms ease both;
+}
+
+.grid .panel:nth-child(2) {
+  animation-delay: 80ms;
+}
+
+.grid .panel:nth-child(3) {
+  animation-delay: 150ms;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: #54796f;
+  margin: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.panel {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(9, 36, 49, 0.08);
+  border-radius: 16px;
+  padding: 1rem;
+}
+
+ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.simulator input {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.loading-view .panel {
+  animation: none;
+}
+
+@keyframes panel-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

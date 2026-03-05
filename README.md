@@ -25,3 +25,28 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Run with Docker
+
+This repo includes Docker setup for:
+- Angular frontend (served by Nginx on `http://localhost:4200`)
+- Spring Boot backend (`http://localhost:8080`)
+- PostgreSQL database (`localhost:5432`)
+
+### Start everything
+
+```bash
+docker compose up --build
+```
+
+### Stop everything
+
+```bash
+docker compose down
+```
+
+### Stop and remove DB volume
+
+```bash
+docker compose down -v
+```

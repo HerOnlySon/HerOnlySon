@@ -1,0 +1,59 @@
+<ng-container *ngIf="report$ | async as report; else loadingState">
+  <section class="reports animate-in">
+    <header>
+      <p class="eyebrow">Personalized Reports</p>
+      <h1>Driver Health Summary</h1>
+      <p>Automated insight snapshot for {{ report.user.name }}.</p>
+    </header>
+
+    <div class="grid">
+      <article class="panel">
+        <h2>Current Snapshot</h2>
+        <p><strong>Engine status:</strong> {{ report.latest.engineStatus || 'Unknown' }}</p>
+        <p><strong>Latest RPM:</strong> {{ report.latest.rpm || 0 }}</p>
+        <p><strong>Average fuel:</strong> {{ report.avgFuel | number:'1.0-1' }}%</p>
+        <p><strong>Breakdown risk:</strong> {{ report.risk.score }}%</p>
+        <p>{{ report.risk.summary }}</p>
+      </article>
+
+      <article class="panel">
+        <h2>Maintenance Notifications</h2>
+        <ul>
+          <li>Next service should be scheduled within the next 1,200 km.</li>
+          <li>Run a battery stress test if health stays under 60% for 3 days.</li>
+          <li>Track repeated error codes to avoid recurring repair costs.</li>
+        </ul>
+      </article>
+
+      <article class="panel simulator">
+        <h2>What-if Simulator</h2>
+        <label>
+          Additional mileage in next month: {{ projectedMileage }} km
+          <input type="range" min="0" max="25000" step="500" [(ngModel)]="projectedMileage" />
+        </label>
+        <p><strong>Projected risk:</strong> {{ report.projectedRisk }}%</p>
+        <p>
+          If mileage rises by {{ projectedMileage }} km, predicted risk increases due to wear rate and higher failure probability.
+        </p>
+      </article>
+    </div>
+  </section>
+</ng-container>
+
+<ng-template #loadingState>
+  <section class="reports loading-view">
+    <div class="skeleton skeleton-line" style="width: 220px;"></div>
+    <div class="grid">
+      <article class="panel">
+        <div class="skeleton skeleton-line" style="width: 150px;"></div>
+        <div class="skeleton skeleton-line"></div>
+        <div class="skeleton skeleton-line" style="width: 80%;"></div>
+      </article>
+      <article class="panel">
+        <div class="skeleton skeleton-line" style="width: 180px;"></div>
+        <div class="skeleton skeleton-line"></div>
+        <div class="skeleton skeleton-line" style="width: 75%;"></div>
+      </article>
+    </div>
+  </section>
+</ng-template>

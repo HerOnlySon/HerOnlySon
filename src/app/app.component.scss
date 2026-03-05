@@ -1,0 +1,110 @@
+:host {
+  display: block;
+}
+
+.app-shell {
+  min-height: 100vh;
+  padding: 1.2rem;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 1rem;
+  position: relative;
+}
+
+.route-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 50;
+  transition: opacity 120ms ease;
+}
+
+.route-loader span {
+  display: block;
+  width: 38%;
+  height: 100%;
+  background: linear-gradient(90deg, #f56f3a, #0d566b);
+  animation: loader-slide 1s linear infinite;
+}
+
+.route-loader.visible {
+  opacity: 1;
+}
+
+.topbar {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(9, 36, 49, 0.08);
+  border-radius: 20px;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.brand h1 {
+  margin: 0.2rem 0 0;
+  font-size: 1.4rem;
+}
+
+.eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: #54796f;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: #07384a;
+  font-weight: 700;
+  border-radius: 999px;
+  border: 1px solid #b6d1d9;
+  padding: 0.4rem 0.8rem;
+}
+
+nav a.active {
+  background: #0d566b;
+  color: #fff;
+  border-color: #0d566b;
+}
+
+nav button {
+  border: 1px solid #b6d1d9;
+  background: #fff;
+  border-radius: 999px;
+  padding: 0.4rem 0.8rem;
+  font: inherit;
+  font-weight: 700;
+  color: #07384a;
+  cursor: pointer;
+}
+
+main {
+  min-width: 0;
+}
+
+footer {
+  color: #38515f;
+}
+
+@keyframes loader-slide {
+  from {
+    transform: translateX(-120%);
+  }
+  to {
+    transform: translateX(380%);
+  }
+}

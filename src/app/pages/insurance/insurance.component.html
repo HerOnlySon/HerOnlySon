@@ -1,0 +1,54 @@
+<ng-container *ngIf="vm$ | async as vm; else loadingState">
+  <section class="insurance animate-in">
+    <header>
+      <p class="eyebrow">Insurance Intelligence</p>
+      <h1>Personalized South African Quotes</h1>
+      <p>Estimated from live diagnostics, driving style, and local driving patterns.</p>
+    </header>
+
+    <article class="summary panel">
+      <p><strong>Vehicle:</strong> {{ vm.car.year }} {{ vm.car.make }} {{ vm.car.model }}</p>
+      <p><strong>Driving style:</strong> {{ vm.car.drivingStyle }}</p>
+      <p><strong>Current risk score:</strong> <span>{{ vm.riskScore }}</span>/100</p>
+    </article>
+
+    <div class="quotes-grid">
+      <article class="panel" *ngFor="let quote of vm.quotes">
+        <h2>{{ quote.provider }}</h2>
+        <p class="price">{{ quote.monthlyPrice | currency:'ZAR':'symbol':'1.0-0':'en-ZA' }}/month</p>
+        <p><strong>Provider risk score:</strong> {{ quote.riskScore }}/100</p>
+        <p>{{ quote.reason }}</p>
+      </article>
+    </div>
+
+    <article class="panel" *ngIf="vm.metric as metric">
+      <h3>How to Improve Your Score</h3>
+      <ul>
+        <li>Keep average RPM under 2,500 (current {{ metric.rpm }}).</li>
+        <li>Maintain battery health above 70% (current {{ metric.batteryHealth | number:'1.0-1' }}%).</li>
+        <li>Avoid low-fuel driving (current {{ metric.fuelLevel | number:'1.0-1' }}%).</li>
+        <li>Resolve error codes quickly to reduce claim-risk assumptions.</li>
+      </ul>
+    </article>
+  </section>
+</ng-container>
+
+<ng-template #loadingState>
+  <section class="insurance loading-view">
+    <div class="skeleton skeleton-line" style="width: 230px;"></div>
+    <article class="panel">
+      <div class="skeleton skeleton-line" style="width: 70%;"></div>
+      <div class="skeleton skeleton-line" style="width: 50%;"></div>
+    </article>
+    <div class="quotes-grid">
+      <article class="panel">
+        <div class="skeleton skeleton-line" style="width: 100px;"></div>
+        <div class="skeleton skeleton-line" style="height: 38px; width: 120px;"></div>
+      </article>
+      <article class="panel">
+        <div class="skeleton skeleton-line" style="width: 120px;"></div>
+        <div class="skeleton skeleton-line" style="height: 38px; width: 140px;"></div>
+      </article>
+    </div>
+  </section>
+</ng-template>

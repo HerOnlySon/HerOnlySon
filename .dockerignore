@@ -1,0 +1,8 @@
+.git
+.gitignore
+.angular
+node_modules
+dist
+coverage
+README.md
+backend/target

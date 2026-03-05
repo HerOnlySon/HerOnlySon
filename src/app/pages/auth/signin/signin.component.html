@@ -1,0 +1,22 @@
+<section class="auth-page animate-in">
+  <article class="panel">
+    <p class="eyebrow">Account Access</p>
+    <h1>Sign In</h1>
+    <p>Use your CarDoc account to sync your vehicle profile and service reminders.</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <label>
+        Email
+        <input type="email" formControlName="email" placeholder="you@example.com" />
+      </label>
+
+      <label>
+        Password
+        <input type="password" formControlName="password" placeholder="Your password" />
+      </label>
+
+      <button type="submit" [disabled]="isSubmitting">{{ isSubmitting ? 'Signing in...' : 'Sign In' }}</button>
+      <p class="error" *ngIf="error">{{ error }}</p>
+    </form>
+  </article>
+</section>

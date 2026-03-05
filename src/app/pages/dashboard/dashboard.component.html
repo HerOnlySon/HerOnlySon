@@ -1,0 +1,128 @@
+<ng-container *ngIf="vm$ | async as vm; else loadingState">
+  <section class="dashboard animate-in">
+    <header class="section-header">
+      <div>
+        <p class="eyebrow">Live Telemetry</p>
+        <h1>Vehicle Health Dashboard</h1>
+        <p class="subtle">Updates every 5 seconds{{ vm.lastUpdated ? ' · last update ' + (vm.lastUpdated | date:'mediumTime') : '' }}</p>
+      </div>
+      <span class="status" [class.warning]="vm.latest.engineStatus === 'Warning'" [class.critical]="vm.latest.engineStatus === 'Critical'">
+        {{ vm.latest.engineStatus || 'Loading' }}
+      </span>
+    </header>
+
+    <div class="metric-grid" *ngIf="vm.latest as metric">
+      <article class="metric-card">
+        <h2>RPM</h2>
+        <p class="value">{{ metric.rpm }}</p>
+        <p class="hint">Optimal cruising: 1,500 - 2,500</p>
+      </article>
+
+      <article class="metric-card">
+        <h2>Fuel Level</h2>
+        <p class="value">{{ metric.fuelLevel | number:'1.0-1' }}%</p>
+        <div class="progress"><span [style.width.%]="metric.fuelLevel"></span></div>
+      </article>
+
+      <article class="metric-card">
+        <h2>Battery Health</h2>
+        <p class="value">{{ metric.batteryHealth | number:'1.0-1' }}%</p>
+        <div class="progress battery"><span [style.width.%]="metric.batteryHealth"></span></div>
+      </article>
+
+      <article class="metric-card">
+        <h2>Coolant Temp</h2>
+        <p class="value">{{ metric.coolantTemp }}°C</p>
+        <p class="hint">Speed {{ metric.speed }} km/h · Odometer {{ metric.odometer | number:'1.0-1' }} km</p>
+      </article>
+    </div>
+
+    <div class="charts-grid">
+      <article class="panel">
+        <h3>RPM Trend</h3>
+        <svg viewBox="0 0 340 130" preserveAspectRatio="none">
+          <polyline [attr.points]="vm.rpmPoints"></polyline>
+        </svg>
+      </article>
+
+      <article class="panel">
+        <h3>Fuel Trend</h3>
+        <svg viewBox="0 0 340 130" preserveAspectRatio="none">
+          <polyline [attr.points]="vm.fuelPoints"></polyline>
+        </svg>
+      </article>
+
+      <article class="panel">
+        <h3>Battery Trend</h3>
+        <svg viewBox="0 0 340 130" preserveAspectRatio="none">
+          <polyline [attr.points]="vm.batteryPoints"></polyline>
+        </svg>
+      </article>
+    </div>
+
+    <div class="insight-grid">
+      <article class="panel">
+        <h3>Maintenance Alerts</h3>
+        <ul>
+          <li *ngFor="let alert of vm.alerts; trackBy: trackByAlert">
+            <strong>{{ alert.maintenanceType }}</strong>
+            <span class="badge" [class.high]="alert.severity === 'High'" [class.medium]="alert.severity === 'Medium'">{{ alert.severity }}</span>
+            <p>{{ alert.message }}</p>
+          </li>
+        </ul>
+      </article>
+
+      <article class="panel">
+        <h3>AI Breakdown Risk</h3>
+        <p class="risk-score">{{ vm.risk.score }}%</p>
+        <p>{{ vm.risk.summary }}</p>
+        <h4>Suggested Action</h4>
+        <p>{{ vm.maintenanceTip }}</p>
+      </article>
+
+      <article class="panel">
+        <h3>Next Service Timing</h3>
+        <p><strong>Current mileage:</strong> {{ vm.car.mileage | number:'1.0-0' }} km</p>
+        <p><strong>Next service:</strong> {{ vm.service.nextServiceMileage | number:'1.0-0' }} km</p>
+        <p *ngIf="!vm.service.dueNow"><strong>Due in:</strong> {{ vm.service.dueInKm | number:'1.0-0' }} km</p>
+        <p *ngIf="vm.service.dueNow" class="overdue"><strong>Status:</strong> Overdue by {{ (vm.service.dueInKm * -1) | number:'1.0-0' }} km</p>
+        <p>{{ vm.service.recommendation }}</p>
+      </article>
+
+      <article class="panel">
+        <h3>Error Code Explanations</h3>
+        <ng-container *ngIf="vm.explainedCodes.length > 0; else noCodes">
+          <ul>
+            <li *ngFor="let code of vm.explainedCodes">
+              <strong>{{ code.code }}</strong>
+              <p>{{ code.explanation }}</p>
+            </li>
+          </ul>
+        </ng-container>
+        <ng-template #noCodes>
+          <p>No active error codes. System is currently stable.</p>
+        </ng-template>
+      </article>
+    </div>
+  </section>
+</ng-container>
+
+<ng-template #loadingState>
+  <section class="dashboard loading-view">
+    <div class="skeleton skeleton-line" style="width: 200px;"></div>
+    <div class="metric-grid">
+      <article class="metric-card">
+        <div class="skeleton skeleton-line" style="height: 20px; width: 80px;"></div>
+        <div class="skeleton skeleton-line" style="height: 42px; width: 120px;"></div>
+      </article>
+      <article class="metric-card">
+        <div class="skeleton skeleton-line" style="height: 20px; width: 110px;"></div>
+        <div class="skeleton skeleton-line" style="height: 42px; width: 130px;"></div>
+      </article>
+      <article class="metric-card">
+        <div class="skeleton skeleton-line" style="height: 20px; width: 120px;"></div>
+        <div class="skeleton skeleton-line" style="height: 42px; width: 130px;"></div>
+      </article>
+    </div>
+  </section>
+</ng-template>
