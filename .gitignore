@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+/backend/target
 /bazel-out
 
 # Node
