@@ -1,6 +1,6 @@
 <h1>HI👋!! My Name is Lebohang</h>
 <hr>
-<h2 align="center">SOFTWARE ENGINEER INTERN</h2>
+<h2 align="center">SOFTWARE ENGINEER</h2>
 <p>
   FULL STACK LEARNERSHIP @SHAPER<br>
   passionate about building clean,user friendly applications<br>
